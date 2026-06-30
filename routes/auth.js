@@ -30,8 +30,8 @@ router.post('/register', async (req, res) => {
     await sendOTPEmail(email, otp);
     res.status(201).json({ message: 'OTP sent to your email.' });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Server error' });
+    console.error('Register error:', err.message);
+    res.status(500).json({ message: err.message || 'Server error' });
   }
 });
 
