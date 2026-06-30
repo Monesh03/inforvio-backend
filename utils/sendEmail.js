@@ -1,20 +1,10 @@
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 
-const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 587,
-  secure: false,
-  requireTLS: true,
-  family: 4,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const sendOTPEmail = async (email, otp) => {
-  await transporter.sendMail({
-    from: `"Inforvio" <${process.env.EMAIL_USER}>`,
+  await resend.emails.send({
+    from: 'Inforvio <onboarding@resend.dev>',
     to: email,
     subject: `Your verification code is ${otp}`,
     html: `
